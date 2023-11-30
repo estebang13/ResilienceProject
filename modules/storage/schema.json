@@ -1,0 +1,25 @@
+{
+    "typeName": "EstebanUCR::Storage::AllStorages::MODULE",
+    "description": "Schema for Module Fragment of type EstebanUCR::Storage::AllStorages::MODULE",
+    "properties": {
+        "Resources": {
+            "properties": {
+                "DBTable": {
+                    "type": "object",
+                    "properties": {
+                        "Type": {
+                            "type": "string",
+                            "const": "AWS::DynamoDB::GlobalTable"
+                        },
+                        "Properties": {
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "additionalProperties": false
+        }
+    },
+    "additionalProperties": true
+}

@@ -1,0 +1,34 @@
+[
+    {
+        "ParameterKey":"CloudWatchAmplifyVirginia",
+        "ParameterValue":"cfn-project-EstebanUCR-CloudwatchAmplifyEndpointAlarm-pCOhp6czv4Pv"
+    },
+    {
+        "ParameterKey":"CloudWatchApiGatewayVirginia",
+        "ParameterValue":"cfn-project-EstebanUCR-CloudwatchAPIGatewayAlarm-lEuOzwgiJQ6W"
+    },
+    {
+        "ParameterKey":"CloudWatchLambda1Virginia",
+        "ParameterValue":"cfn-project-EstebanUCR-CloudwatchLambdaFunction1ErrorAlarm-ar60lTZ6PlZc"
+    },
+    {
+        "ParameterKey":"CloudWatchLambda2Virginia",
+        "ParameterValue":"cfn-project-EstebanUCR-CloudwatchLambdaFunction2ErrorAlarm-R39FEDfruCl2"
+    },
+    {
+        "ParameterKey":"CloudWatchAmplifyOregon",
+        "ParameterValue":"cfn-project-EstebanUCR-CloudwatchAmplifyEndpointAlarm-3HlitR7kzYX1"
+    },
+    {
+        "ParameterKey":"CloudWatchApiGatewayOregon",
+        "ParameterValue":"cfn-project-EstebanUCR-CloudwatchAPIGatewayAlarm-rAWMM52Fn0G1"
+    },
+    {
+        "ParameterKey":"CloudWatchLambda1Oregon",
+        "ParameterValue":"cfn-project-EstebanUCR-CloudwatchLambdaFunction1ErrorAlarm-GHj7wGaAfzrf"
+    },
+    {
+        "ParameterKey":"CloudWatchLambda2Oregon",
+        "ParameterValue":"cfn-project-EstebanUCR-CloudwatchLambdaFunction2ErrorAlarm-Nw3McK1ljiTs"
+    }
+]

@@ -1,0 +1,115 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Final Project Resilience",
+  "Parameters": {
+    "AZ1": {
+      "Description": "Introduce AZ-1",
+      "Type": "String"
+    },
+    "LambdaS3Region": {
+      "Type": "String"
+    },
+    "GitAccessToken": {
+      "Type": "String"
+    },
+    "GitRepo": {
+      "Type": "String"
+    }
+  },
+  "Resources": {
+    "Security": {
+      "Type": "EstebanUCR::IAM::DefaultIAM::MODULE",
+      "Properties": {}
+    },
+    "Networking": {
+      "Type": "EstebanUCR::Network::DefaultNetwork::MODULE",
+      "Properties": {
+        "AZ1": {
+          "Ref": "AZ1"
+        }
+      }
+    },
+    "AIServices": {
+      "Type": "EstebanUCR::AI::DefaultAI::MODULE",
+      "Properties": {
+        "ComprehendS3AccessRoleARN": {
+          "Fn::GetAtt": [
+            "SecurityComprehendS3AccessRole",
+            "Arn"
+          ]
+        },
+        "S3Region": {
+          "Ref": "LambdaS3Region"
+        }
+      }
+    },
+    "Lambdas": {
+      "Type": "EstebanUCR::Lambda::DefaultLambdas::MODULE",
+      "Properties": {
+        "LambdaExecutionRoleARN": {
+          "Fn::GetAtt": [
+            "SecurityLambdaExecutionRole",
+            "Arn"
+          ]
+        },
+        "S3Region": {
+          "Ref": "LambdaS3Region"
+        }
+      }
+    },
+    "ApiGateway": {
+      "Type": "EstebanUCR::ApiGateway::DefaultAPI::MODULE",
+      "Properties": {
+        "LambdaFunctionARN": {
+          "Fn::GetAtt": [
+            "LambdasLambdaFunction",
+            "Arn"
+          ]
+        },
+        "LambdaFunctionName": {
+          "Ref": "LambdasLambdaFunction"
+        }
+      }
+    },
+    "Amplify": {
+      "Type": "EstebanUCR::Amplify::DefaultAmplify::MODULE",
+      "Properties": {
+        "AccessToken": {
+          "Ref": "GitAccessToken"
+        },
+        "IamRole": {
+          "Fn::GetAtt": [
+            "SecurityAmplifyS3AccessRole",
+            "Arn"
+          ]
+        },
+        "Repo": {
+          "Ref": "GitRepo"
+        }
+      }
+    },
+    "Cloudwatch": {
+      "Type": "EstebanUCR::Cloudwatch::DefaultCloudwatch::MODULE",
+      "Properties": {
+        "AmplifyID": {
+          "Ref": "AmplifyAmplifyApp"
+        },
+        "ApiGatewayID": {
+          "Ref": "ApiGatewayApiGateway"
+        },
+        "LambdaFunction1ARN": {
+          "Fn::GetAtt": [
+            "LambdasLambdaFunction",
+            "Arn"
+          ]
+        },
+        "LambdaFunction2ARN": {
+          "Fn::GetAtt": [
+            "LambdasLambdaFunction2",
+            "Arn"
+          ]
+        }
+      }
+    }
+  }
+}

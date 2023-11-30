@@ -1,0 +1,41 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "A module example wrapping an S3 Bucket. The features are Versioning, Encryption and DeletionPolicy.",
+    "Parameters": {
+        "ComprehendS3AccessRoleARN": {
+            "Description": "ARN access top S3",
+            "Type": "String"
+        },
+        "S3Region": {
+            "Type": "String"
+        }
+    },
+    "Resources": {
+        "ComprehendVirginia": {
+            "Type": "AWS::Comprehend::DocumentClassifier",
+            "Properties": {
+                "DataAccessRoleArn": {
+                    "Ref": "ComprehendS3AccessRoleARN"
+                },
+                "DocumentClassifierName": "ClasificadorDeAmabilidadYAntagonismo",
+                "InputDataConfig": {
+                    "DataFormat": "COMPREHEND_CSV",
+                    "DocumentType": "PLAIN_TEXT_DOCUMENT",
+                    "S3Uri": {
+                        "Fn::Sub": "s3://nlptrainrasgospsicologicos${S3Region}/RasgosAmabilidad - Sheet1.csv"
+                    },
+                    "TestS3Uri": {
+                        "Fn::Sub": "s3://nlptrainrasgospsicologicos${S3Region}/RasgosAmabilidad - Sheet1.csv"
+                    }
+                },
+                "LanguageCode": "es",
+                "Mode": "MULTI_CLASS",
+                "OutputDataConfig": {
+                    "S3Uri": {
+                        "Fn::Sub": "s3://nlptrainrasgospsicologicos${S3Region}/OutputTrainData/"
+                    }
+                }
+            }
+        }
+    }
+}

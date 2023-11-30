@@ -1,0 +1,5 @@
+[2023-11-30T05:40:14Z] DEBUG    - Logging set up successfully
+[2023-11-30T05:40:14Z] DEBUG    - Running None: Namespace(version=False, subparser_name=None, command=<function init at 0x7efc465740d0>, verbose=0, force=False, type_name=None, artifact_type=None, endpoint_url=None, region=None, target_schemas=[], profile=None)
+[2023-11-30T05:40:14Z] DEBUG    - Root directory: /home/admin1/Desktop/ResilienceProject/modules
+[2023-11-30T05:40:14Z] WARNING  - Initializing new project
+[2023-11-30T05:40:14Z] DEBUG    - Loading project file '/home/admin1/Desktop/ResilienceProject/modules/.rpdk-config'

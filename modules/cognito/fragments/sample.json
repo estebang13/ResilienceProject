@@ -1,0 +1,12 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "A module example wrapping an S3 Bucket. The features are Versioning, Encryption and DeletionPolicy.",
+    "Resources": {
+        "CognitoPool": {
+            "Type": "AWS::Cognito::UserPool",
+            "Properties": {
+                "UserPoolName": "UserPool"
+            }
+        }
+    }
+}

@@ -1,0 +1,104 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "A module example wrapping an S3 Bucket. The features are Versioning, Encryption and DeletionPolicy.",
+    "Parameters": {
+        "AmplifyID": {
+            "Type": "String"
+        },
+        "ApiGatewayID":{
+            "Type":"String"
+        },
+        "LambdaFunction1ARN":{
+            "Type":"String"
+        },
+        "LambdaFunction2ARN":{
+            "Type": "String"
+        }
+    },
+    "Resources": {
+        "AmplifyEndpointAlarm": {
+            "Type": "AWS::CloudWatch::Alarm",
+            "Properties": {
+                "AlarmDescription": "Amplify endpoint health",
+                "Namespace": "AWS/Amplify",
+                "MetricName": "EndpointHealth",
+                "Statistic": "SampleCount",
+                "Period": 60,
+                "EvaluationPeriods": 1,
+                "Threshold": 1,
+                "ComparisonOperator": "LessThanThreshold",
+                "Dimensions": [
+                    {
+                        "Name": "AmplifyAppId",
+                        "Value": {
+                            "Ref": "AmplifyID"
+                        }
+                    }
+                ]
+            }
+        },
+        "APIGatewayAlarm": {
+            "Type": "AWS::CloudWatch::Alarm",
+            "Properties": {
+                "AlarmDescription": "API Gateway health",
+                "Namespace": "AWS/ApiGateway",
+                "MetricName": "4XXErrorRate",
+                "Statistic": "SampleCount",
+                "Period": 60,
+                "EvaluationPeriods": 1,
+                "Threshold": 1,
+                "ComparisonOperator": "GreaterThanThreshold",
+                "Dimensions": [
+                    {
+                        "Name": "RestApiId",
+                        "Value": {
+                            "Ref": "ApiGatewayID"
+                        }
+                    }
+                ]
+            }
+        },
+        "LambdaFunction1ErrorAlarm": {
+            "Type": "AWS::CloudWatch::Alarm",
+            "Properties": {
+                "AlarmDescription": "Lambda function error rate",
+                "Namespace": "AWS/Lambda",
+                "MetricName": "Errors",
+                "Statistic": "SampleCount",
+                "Period": 60,
+                "EvaluationPeriods": 2,
+                "Threshold": 0,
+                "ComparisonOperator": "GreaterThanThreshold",
+                "Dimensions": [
+                    {
+                        "Name": "FunctionName",
+                        "Value": {
+                            "Ref": "LambdaFunction1ARN"
+                        }
+                    }
+                ]
+            }
+        },
+        "LambdaFunction2ErrorAlarm": {
+            "Type": "AWS::CloudWatch::Alarm",
+            "Properties": {
+                "AlarmDescription": "Lambda function error rate",
+                "Namespace": "AWS/Lambda",
+                "MetricName": "Errors",
+                "Statistic": "SampleCount",
+                "Period": 60,
+                "EvaluationPeriods": 2,
+                "Threshold": 0,
+                "ComparisonOperator": "GreaterThanThreshold",
+                "Dimensions": [
+                    {
+                        "Name": "FunctionName",
+                        "Value": {
+                            "Ref": "LambdaFunction2ARN"
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

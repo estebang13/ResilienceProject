@@ -1,0 +1,74 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "A module example wrapping an S3 Bucket. The features are Versioning, Encryption and DeletionPolicy.",
+    "Parameters": {
+        "LambdaFunctionARN": {
+            "Description": "LambdaARN",
+            "Type": "String"
+        },
+        "LambdaFunctionName": {
+            "Description": "Lambda Name",
+            "Type": "String"
+        }
+    },
+    "Resources": {
+        "ApiGateway": {
+            "Type": "AWS::ApiGateway::RestApi",
+            "Properties": {
+                "Name": "MyApiGateway",
+                "FailOnWarnings": "true",
+                "EndpointConfiguration": {
+                    "Types": [
+                        "PRIVATE"
+                    ]
+                },
+                "ApiKeySourceType": "HEADER"
+            }
+        },
+        "ApiGatewayResource": {
+            "Type": "AWS::ApiGateway::Resource",
+            "Properties": {
+                "RestApiId": {
+                    "Ref": "ApiGateway"
+                },
+                "ParentId": {
+                    "Fn::GetAtt": [
+                        "ApiGateway",
+                        "RootResourceId"
+                    ]
+                },
+                "PathPart": "resource"
+            }
+        },
+        "ApiGatewayMethod": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+                "AuthorizationType": "NONE",
+                "RestApiId": {
+                    "Ref": "ApiGateway"
+                },
+                "ResourceId": {
+                    "Ref": "ApiGatewayResource"
+                },
+                "HttpMethod": "POST",
+                "Integration": {
+                    "IntegrationHttpMethod": "POST",
+                    "Type": "AWS_PROXY",
+                    "Uri": {
+                        "Fn::Sub": "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${LambdaFunctionARN}/invocations"
+                    }
+                }
+            }
+        },
+        "ApiGatewayInvokePermission": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+                "Action": "lambda:InvokeFunction",
+                "FunctionName": {
+                    "Ref": "LambdaFunctionName"
+                },
+                "Principal": "apigateway.amazonaws.com"
+            }
+        }
+    }
+}

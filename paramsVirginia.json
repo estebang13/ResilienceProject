@@ -1,0 +1,18 @@
+[
+    {
+        "ParameterKey":"AZ1",
+        "ParameterValue":"us-east-1a"
+    },
+    {
+        "ParameterKey": "LambdaS3Region",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "GitAccessToken",
+        "ParameterValue": "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"
+    },
+    {
+        "ParameterKey": "GitRepo",
+        "ParameterValue": "https://github.com/estebang13/react-lex-plus.git"
+    }
+]

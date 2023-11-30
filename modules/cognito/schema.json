@@ -1,0 +1,25 @@
+{
+    "typeName": "EstebanUCR::Cognito::DefaultCognito::MODULE",
+    "description": "Schema for Module Fragment of type EstebanUCR::Cognito::DefaultCognito::MODULE",
+    "properties": {
+        "Resources": {
+            "properties": {
+                "CognitoPool": {
+                    "type": "object",
+                    "properties": {
+                        "Type": {
+                            "type": "string",
+                            "const": "AWS::Cognito::UserPool"
+                        },
+                        "Properties": {
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "additionalProperties": false
+        }
+    },
+    "additionalProperties": true
+}

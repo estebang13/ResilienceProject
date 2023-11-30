@@ -1,0 +1,69 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "Final Project Resilience",
+    "Parameters": {
+      "CloudWatchAmplifyVirginia":{
+        "Type": "String"
+      },
+      "CloudWatchApiGatewayVirginia":{
+        "Type": "String"
+      },
+      "CloudWatchLambda1Virginia":{
+        "Type": "String"
+      },
+      "CloudWatchLambda2Virginia":{
+        "Type": "String"
+      },
+      "CloudWatchAmplifyOregon":{
+        "Type": "String"
+      },
+      "CloudWatchApiGatewayOregon":{
+        "Type": "String"
+      },
+      "CloudWatchLambda1Oregon":{
+        "Type": "String"
+      },
+      "CloudWatchLambda2Oregon":{
+        "Type": "String"
+      }
+    },
+    "Resources": {
+      "Cognito": {
+        "Type": "EstebanUCR::Cognito::DefaultCognito::MODULE",
+        "Properties": {}
+      },
+      "Storage": {
+        "Type": "EstebanUCR::Storage::AllStorages::MODULE",
+        "Properties": {}
+      },
+      "Route53": {
+        "Type": "EstebanUCR::Route53::DefaultRoute53::MODULE",
+        "Properties": {
+          "CloudWatchAmplifyVirginia":{
+            "Ref": "CloudWatchAmplifyVirginia"
+          },
+          "CloudWatchApiGatewayVirginia":{
+            "Ref": "CloudWatchApiGatewayVirginia"
+          },
+          "CloudWatchLambda1Virginia":{
+            "Ref": "CloudWatchLambda1Virginia"
+          },
+          "CloudWatchLambda2Virginia":{
+            "Ref": "CloudWatchLambda2Virginia"
+          },
+          "CloudWatchAmplifyOregon":{
+            "Ref": "CloudWatchAmplifyOregon"
+          },
+          "CloudWatchApiGatewayOregon":{
+            "Ref": "CloudWatchApiGatewayOregon"
+          },
+          "CloudWatchLambda1Oregon":{
+            "Ref": "CloudWatchLambda1Oregon"
+          },
+          "CloudWatchLambda2Oregon":{
+            "Ref": "CloudWatchLambda2Oregon"
+          }
+        }
+      }
+    }
+  }

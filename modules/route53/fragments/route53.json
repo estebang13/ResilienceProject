@@ -1,0 +1,214 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "A module example wrapping an S3 Bucket. The features are Versioning, Encryption and DeletionPolicy.",
+    "Parameters": {
+        "CloudWatchAmplifyVirginia": {
+            "Type": "String"
+        },
+        "CloudWatchApiGatewayVirginia": {
+            "Type": "String"
+        },
+        "CloudWatchLambda1Virginia": {
+            "Type": "String"
+        },
+        "CloudWatchLambda2Virginia": {
+            "Type": "String"
+        },
+        "CloudWatchAmplifyOregon": {
+            "Type": "String"
+        },
+        "CloudWatchApiGatewayOregon": {
+            "Type": "String"
+        },
+        "CloudWatchLambda1Oregon": {
+            "Type": "String"
+        },
+        "CloudWatchLambda2Oregon": {
+            "Type": "String"
+        }
+    },
+    "Resources": {
+        "Route53HealthCheckVirginiaAmplify": {
+            "Type": "AWS::Route53::HealthCheck",
+            "Properties": {
+                "HealthCheckConfig": {
+                    "AlarmIdentifier": {
+                        "Name": {
+                            "Ref": "CloudWatchAmplifyVirginia"
+                        },
+                        "Region": "us-east-1"
+                    },
+                    "Type": "CLOUDWATCH_METRIC"
+                }
+            }
+        },
+        "Route53HealthCheckVirginiaAPiGateway": {
+            "Type": "AWS::Route53::HealthCheck",
+            "Properties": {
+                "HealthCheckConfig": {
+                    "AlarmIdentifier": {
+                        "Name": {
+                            "Ref": "CloudWatchApiGatewayVirginia"
+                        },
+                        "Region": "us-east-1"
+                    },
+                    "Type": "CLOUDWATCH_METRIC"
+                }
+            }
+        },
+        "Route53HealthCheckVirginiaLambda1": {
+            "Type": "AWS::Route53::HealthCheck",
+            "Properties": {
+                "HealthCheckConfig": {
+                    "AlarmIdentifier": {
+                        "Name": {
+                            "Ref": "CloudWatchLambda1Virginia"
+                        },
+                        "Region": "us-east-1"
+                    },
+                    "Type": "CLOUDWATCH_METRIC"
+                }
+            }
+        },
+        "Route53HealthCheckVirginiaLambda2": {
+            "Type": "AWS::Route53::HealthCheck",
+            "Properties": {
+                "HealthCheckConfig": {
+                    "AlarmIdentifier": {
+                        "Name": {
+                            "Ref": "CloudWatchLambda2Virginia"
+                        },
+                        "Region": "us-east-1"
+                    },
+                    "Type": "CLOUDWATCH_METRIC"
+                }
+            }
+        },
+        "Route53HealthCheckOregonAmplify": {
+            "Type": "AWS::Route53::HealthCheck",
+            "Properties": {
+                "HealthCheckConfig": {
+                    "AlarmIdentifier": {
+                        "Name": {
+                            "Ref": "CloudWatchAmplifyOregon"
+                        },
+                        "Region": "us-west-2"
+                    },
+                    "Type": "CLOUDWATCH_METRIC"
+                }
+            }
+        },
+        "Route53HealthCheckOregonApiGateway": {
+            "Type": "AWS::Route53::HealthCheck",
+            "Properties": {
+                "HealthCheckConfig": {
+                    "AlarmIdentifier": {
+                        "Name": {
+                            "Ref": "CloudWatchApiGatewayOregon"
+                        },
+                        "Region": "us-west-2"
+                    },
+                    "Type": "CLOUDWATCH_METRIC"
+                }
+            }
+        },
+        "Route53HealthCheckOregonLambda1": {
+            "Type": "AWS::Route53::HealthCheck",
+            "Properties": {
+                "HealthCheckConfig": {
+                    "AlarmIdentifier": {
+                        "Name": {
+                            "Ref": "CloudWatchLambda1Oregon"
+                        },
+                        "Region": "us-west-2"
+                    },
+                    "Type": "CLOUDWATCH_METRIC"
+                }
+            }
+        },
+        "Route53HealthCheckOregonLambda2": {
+            "Type": "AWS::Route53::HealthCheck",
+            "Properties": {
+                "HealthCheckConfig": {
+                    "AlarmIdentifier": {
+                        "Name": {
+                            "Ref": "CloudWatchLambda2Oregon"
+                        },
+                        "Region": "us-west-2"
+                    },
+                    "Type": "CLOUDWATCH_METRIC"
+                }
+            }
+        },
+        "Route53HealthCheckGlobalVirginia": {
+            "Type": "AWS::Route53::HealthCheck",
+            "Properties": {
+                "HealthCheckConfig": {
+                    "HealthThreshold":4,
+                    "ChildHealthChecks": [
+                        {
+                            "Fn::GetAtt": [
+                                "Route53HealthCheckVirginiaAmplify",
+                                "HealthCheckId"
+                            ]
+                        },
+                        {
+                            "Fn::GetAtt": [
+                                "Route53HealthCheckVirginiaAPiGateway",
+                                "HealthCheckId"
+                            ]
+                        },
+                        {
+                            "Fn::GetAtt": [
+                                "Route53HealthCheckVirginiaLambda1",
+                                "HealthCheckId"
+                            ]
+                        },
+                        {
+                            "Fn::GetAtt": [
+                                "Route53HealthCheckVirginiaLambda2",
+                                "HealthCheckId"
+                            ]
+                        }
+                    ],
+                    "Type": "CALCULATED"
+                }
+            }
+        },
+        "Route53HealthCheckGlobalOregon": {
+            "Type": "AWS::Route53::HealthCheck",
+            "Properties": {
+                "HealthCheckConfig": {
+                    "HealthThreshold":4,
+                    "ChildHealthChecks": [
+                        {
+                            "Fn::GetAtt": [
+                                "Route53HealthCheckOregonAmplify",
+                                "HealthCheckId"
+                            ]
+                        },
+                        {
+                            "Fn::GetAtt": [
+                                "Route53HealthCheckOregonApiGateway",
+                                "HealthCheckId"
+                            ]
+                        },
+                        {
+                            "Fn::GetAtt": [
+                                "Route53HealthCheckOregonLambda1",
+                                "HealthCheckId"
+                            ]
+                        },
+                        {
+                            "Fn::GetAtt": [
+                                "Route53HealthCheckOregonLambda2",
+                                "HealthCheckId"
+                            ]
+                        }
+                    ],
+                    "Type": "CALCULATED"
+                }
+            }
+        }
+    }
+}

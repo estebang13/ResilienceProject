@@ -1,0 +1,40 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "A module example wrapping an S3 Bucket. The features are Versioning, Encryption and DeletionPolicy.",
+    "Parameters": {
+        "AccessToken": {
+            "Type": "String"
+        },
+        "IamRole": {
+            "Type": "String"
+        },
+        "Repo": {
+            "Type": "String"
+        }
+    },
+    "Resources": {
+        "AmplifyApp": {
+            "Type": "AWS::Amplify::App",
+            "Properties": {
+                "Description": "Simple React Lex amplication",
+                "Name": "React App",
+                "Repository": {
+                    "Ref": "Repo"
+                },
+                "AccessToken": {
+                    "Ref": "AccessToken"
+                },
+                "IAMServiceRole": {
+                    "Ref": "IamRole"
+                },
+                "AutoBranchCreationConfig": {
+                    "AutoBranchCreationPatterns": [ "master"],
+                    "EnableAutoBuild": true,
+                    "EnablePerformanceMode": true,
+                    "Framework": "React",
+                    "Stage": "PRODUCTION"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,46 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "A module example wrapping an S3 Bucket. The features are Versioning, Encryption and DeletionPolicy.",
+    "Parameters": {
+        "LambdaExecutionRoleARN": {
+            "Description": "Execution Role from iam module",
+            "Type": "String"
+        },
+        "S3Region":{
+            "Description": "s3 Region",
+            "Type": "String"
+        }
+    },
+    "Resources": {
+        "LambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+                "Handler": "index.handler",
+                "Role": {
+                    "Ref": "LambdaExecutionRoleARN"
+                },
+                "FunctionName": "LambdaFunction",
+                "Runtime": "nodejs20.x",
+                "Code": {
+                    "S3Bucket": {"Fn::Sub": "nlptrainrasgospsicologicos${S3Region}"},
+                    "S3Key": "lambdas/lambda1.zip"
+                }
+            }
+        },
+        "LambdaFunction2": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+                "Handler": "index.handler",
+                "Role": {
+                    "Ref": "LambdaExecutionRoleARN"
+                },
+                "FunctionName": "LambdaFunction2",
+                "Runtime": "nodejs20.x",
+                "Code": {
+                    "S3Bucket": {"Fn::Sub": "nlptrainrasgospsicologicos${S3Region}"},
+                    "S3Key": "lambdas/lambda2.zip"
+                }
+            }
+        }
+    }
+}

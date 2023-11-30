@@ -1,0 +1,30 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "A module example wrapping an S3 Bucket. The features are Versioning, Encryption and DeletionPolicy.",
+    "Parameters": {
+        "AZ1": {
+            "Description": "Introduce AZ-1",
+            "Type": "String"
+        }
+    },
+    "Resources": {
+        "VPCVirginia": {
+            "Type": "AWS::EC2::VPC",
+            "Properties": {
+                "CidrBlock": "10.0.0.0/16"
+            }
+        },
+        "PrivateSubnetVirginia": {
+            "Type": "AWS::EC2::Subnet",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPCVirginia"
+                },
+                "AvailabilityZone": {
+                    "Ref": "AZ1"
+                },
+                "CidrBlock": "10.0.3.0/24"
+            }
+        }
+    }
+}
